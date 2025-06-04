@@ -25,7 +25,7 @@ const dataContainer = document.getElementById('dataContainer');
 
 let editingId = null;
 let isTableVisible = false;
-const heroesRef = db.collection('student');
+const studentRef = db.collection('student');
 
 document.addEventListener('DOMContentLoaded', function() {
   toggleTableBtn.querySelector('span').textContent = 'SHOW STUDENT';
@@ -42,17 +42,17 @@ function toggleTable() {
   if (isTableVisible) {
     dataContainer.style.display = 'block';
     toggleTableBtn.querySelector('span').textContent = 'HIDE STUDENT';
-    renderHeroes();
+    renderStudent();
   } else {
     dataContainer.style.display = 'none';
     toggleTableBtn.querySelector('span').textContent = 'SHOW STUDENT';
   }
 }
 
-function renderHeroes() {
+function renderStudent() {
   peopleList.innerHTML = '';
   
-  heroesRef.orderBy('createdAt', 'desc').onSnapshot(snapshot => {
+  studentRef.orderBy('createdAt', 'desc').onSnapshot(snapshot => {
     peopleList.innerHTML = '';
     
     snapshot.forEach(doc => {
@@ -62,7 +62,7 @@ function renderHeroes() {
       row.innerHTML = `
         <td>${student.name}</td>
         <td>${student.age}</td>
-        <td>${student.gender}</td>
+        <td>${student.gender.toUpperCase()}</td>
         <td>${student.address}</td>
         <td>
           <button class="action-btn edit-btn" data-id="${doc.id}">EDIT</button>
@@ -100,7 +100,7 @@ async function handleFormSubmit(e) {
 
   try {
     if (editingId !== null) {
-      await heroesRef.doc(editingId).update({
+      await studentRef.doc(editingId).update({
         name,
         age,
         gender,
@@ -109,7 +109,7 @@ async function handleFormSubmit(e) {
       });
       showToast('Student updated successfully!', 'success');
     } else {
-      await heroesRef.add({
+      await studentRef.add({
         name,
         age,
         gender,
@@ -135,13 +135,13 @@ async function handleEdit(e) {
   const id = e.target.getAttribute('data-id');
   
   try {
-    const doc = await heroesRef.doc(id).get();
+    const doc = await studentRef.doc(id).get();
     if (doc.exists) {
-      const heroToEdit = doc.data();
-      nameInput.value = heroToEdit.name;
-      ageInput.value = heroToEdit.age;
-      genderInput.value = heroToEdit.gender;
-      addressInput.value = heroToEdit.address;
+      const studentToEdit = doc.data();
+      nameInput.value = studentToEdit.name;
+      ageInput.value = studentToEdit.age;
+      genderInput.value = studentToEdit.gender;
+      addressInput.value = studentToEdit.address;
       personIdInput.value = doc.id;
       
       editingId = doc.id;
@@ -166,7 +166,7 @@ async function handleDelete(e) {
   
   if (confirm('Are you sure you want to delete this student?')) {
     try {
-      await heroesRef.doc(id).delete();
+      await studentRef.doc(id).delete();
       showToast('Student deleted successfully!', 'success');
       
       if (editingId === id) {
