@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Endless University CRUD with Firebase</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-firestore-compat.js"></script>
+  </head>
+  <body>
+    <div id="toastContainer"></div>
+    <div class="container">
+      <div class="header">
+    <div class="logo-title-container">
+        <img src="LOGO.png" 
+            alt="Endless University Logo" 
+            class="student-logo">
+        <h1>ENDLESS UNIVERSITY</h1>
+    </div>
+    <div class="header-decoration"></div>
+    </div>
+
+      <div class="form-container">
+        <div class="form-header">
+          <div class="form-title">STUDENT INFORMATION</div>
+          <div class="form-corner"></div>
+        </div>
+        <form id="personForm">
+          <input type="hidden" id="personId" />
+          <div class="form-group">
+            <label for="name">STUDENT NAME:</label>
+            <div class="input-wrapper">
+              <input type="text" id="name" required />
+              <div class="input-decoration"></div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="age">AGE:</label>
+            <div class="input-wrapper">
+              <input type="number" id="age" min="1" max="120" required />
+              <div class="input-decoration"></div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="gender">GENDER:</label>
+            <div class="select-wrapper">
+              <select id="gender" required>
+                <option value="">SELECT TYPE</option>
+                <option value="male">MALE</option>
+                <option value="female">FEMALE</option>
+                <option value="others">OTHERS</option>
+              </select>
+              <div class="select-arrow">▼</div>
+              <div class="input-decoration"></div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="address">COURSE:</label>
+            <div class="textarea-wrapper">
+              <input type="text" id="address"  required></input>
+              <div class="input-decoration"></div>
+            </div>
+          </div>
+          <div class="form-buttons">
+            <button type="submit" id="submitBtn" class="student-button">
+              <span>ADD STUDENT</span>
+            </button>
+            <button
+              type="button"
+              id="cancelBtn"
+              class="student-button cancel"
+              style="display: none"
+            >
+              <span>CANCEL</span>
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <div class="controls">
+        <button id="toggleTableBtn" class="student-button">
+          <span>SHOW STUDENT</span>
+        </button>
+      </div>
+
+      <div class="data-container" id="dataContainer" style="display: none">
+        <div class="table-header">
+          <h2>STUDENT LIST</h2>
+          <div class="table-corner"></div>
+        </div>
+        <table id="peopleTable">
+          <thead>
+            <tr>
+              <th>NAME</th>
+              <th>AGE</th>
+              <th>GENDER</th>
+              <th>COURSE</th>
+              <th>ACTIONS</th>
+            </tr>
+          </thead>
+          <tbody id="peopleList"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
