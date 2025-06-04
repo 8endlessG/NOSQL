@@ -408,6 +408,7 @@ tr:hover {
 
 .student-logo {
   height: 200px; 
+  cursor: pointer;
   width: auto;
   filter: drop-shadow(0 0 3px rgba(200, 170, 110, 0.7));
   transition: all 0.3s ease;
